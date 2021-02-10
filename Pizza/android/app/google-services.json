@@ -1,0 +1,159 @@
+{
+  "project_info": {
+    "project_number": "590509223678",
+    "firebase_url": "https://e-commerce-2a07e.firebaseio.com",
+    "project_id": "e-commerce-2a07e",
+    "storage_bucket": "e-commerce-2a07e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:590509223678:android:e86f52de8e3d3765927faf",
+        "android_client_info": {
+          "package_name": "com.example.E_comarce_Test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "590509223678-47a55f6inbu7lbs10bket67n6krhdd3a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.E_comarce_Test",
+            "certificate_hash": "a5874ff54a9d93a87c77e674fd8030962cb4003f"
+          }
+        },
+        {
+          "client_id": "590509223678-kt8t0tfo4c25oi3jluf8k7h3tf79apli.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfAoetYplEpDo6hwXtim4XokA4Jvri5h8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "590509223678-kt8t0tfo4c25oi3jluf8k7h3tf79apli.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:590509223678:android:6c0e785adf86835e927faf",
+        "android_client_info": {
+          "package_name": "com.example.Firebase_Test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "590509223678-ok1j3j9i66p2p3odnl39sdrtlmcavlel.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.Firebase_Test",
+            "certificate_hash": "a5874ff54a9d93a87c77e674fd8030962cb4003f"
+          }
+        },
+        {
+          "client_id": "590509223678-kt8t0tfo4c25oi3jluf8k7h3tf79apli.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfAoetYplEpDo6hwXtim4XokA4Jvri5h8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "590509223678-kt8t0tfo4c25oi3jluf8k7h3tf79apli.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:590509223678:android:b7ef57bc58e0f52d927faf",
+        "android_client_info": {
+          "package_name": "com.example.Food_Delivery_Test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "590509223678-rlrbb2pohbsubn87kjlr5hof7l5qj45f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.Food_Delivery_Test",
+            "certificate_hash": "a5874ff54a9d93a87c77e674fd8030962cb4003f"
+          }
+        },
+        {
+          "client_id": "590509223678-kt8t0tfo4c25oi3jluf8k7h3tf79apli.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfAoetYplEpDo6hwXtim4XokA4Jvri5h8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "590509223678-kt8t0tfo4c25oi3jluf8k7h3tf79apli.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:590509223678:android:d4141258de15785b927faf",
+        "android_client_info": {
+          "package_name": "com.example.Pizza"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "590509223678-aln76fvuo2uu9eohfvupdqa0o4lcilvv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.Pizza",
+            "certificate_hash": "a5874ff54a9d93a87c77e674fd8030962cb4003f"
+          }
+        },
+        {
+          "client_id": "590509223678-kt8t0tfo4c25oi3jluf8k7h3tf79apli.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfAoetYplEpDo6hwXtim4XokA4Jvri5h8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "590509223678-kt8t0tfo4c25oi3jluf8k7h3tf79apli.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
