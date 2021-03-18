@@ -22,4 +22,6 @@ class UserModel {
       _$UserModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
+
+/// then write this code inside Terminal>>> flutter pub run build_runner build
 }

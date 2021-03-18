@@ -14,4 +14,6 @@ class SingleUserResponse {
       _$SingleUserResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$SingleUserResponseToJson(this);
+
+/// then write this code inside Terminal>>> flutter pub run build_runner build
 }

@@ -38,6 +38,7 @@ class _UserListPageState extends State<UserListPage> {
               ? ListView.builder(
                   itemCount: allUsers.length,
                   itemBuilder: (context, index) {
+                    /// declaration for getting single index data
                     final user = allUsers[index];
                     return Padding(
                       padding: const EdgeInsets.all(5),
@@ -60,7 +61,7 @@ class _UserListPageState extends State<UserListPage> {
       if (response.statusCode == 200)
         setState(() {
           listUserResponse = ListUserResponse.fromJson(response.data);
-          allUsers = listUserResponse.users;
+          allUsers = listUserResponse.users; // users is the object of UserModel class
           print('response OK');
         });
       else

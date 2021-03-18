@@ -28,28 +28,31 @@ class _SingleUserPageState extends State<SingleUserPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text('Get Single User')),
-        body: isLoading
-            ? Center(child: CircularProgressIndicator())
-            : userModel != null
-                ? Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        CircleAvatar(
-                            radius: 50,
-                            backgroundColor: Colors.blue,
-                            child: Image.network(userModel.avatar)),
-                        SizedBox(height: 10),
-                        Text(
-                            'Hello ${userModel.firstName} ${userModel.lastName}'),
-                        Text('email : ${userModel.email}'),
-                        Text('ID : ${userModel.id}')
-                      ],
-                    ),
-                  )
-                : Center(child: Text('No user')));
+        body:
+
+            /// This condition for checking connection
+            isLoading
+                ? Center(child: CircularProgressIndicator())
+                : userModel != null
+                    ? Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CircleAvatar(
+                                radius: 50,
+                                backgroundColor: Colors.blue,
+                                child: Image.network(userModel.avatar)),
+                            SizedBox(height: 10),
+                            Text(
+                                'Hello ${userModel.firstName} ${userModel.lastName}'),
+                            Text('email : ${userModel.email}'),
+                            Text('ID : ${userModel.id}')
+                          ],
+                        ),
+                      )
+                    : Center(child: Text('No user')));
   }
 
   Future getUser() async {
@@ -59,7 +62,8 @@ class _SingleUserPageState extends State<SingleUserPage> {
       if (response.statusCode == 200)
         setState(() {
           singleUserResponse = SingleUserResponse.fromJson(response.data);
-          userModel = singleUserResponse.user;
+          userModel = singleUserResponse
+              .user; // user is the object of SingleUserResponse class
           print('response OK');
         });
       else
