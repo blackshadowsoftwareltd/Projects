@@ -13,7 +13,7 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    // TODO: implement initState.
     super.initState();
     _newsModel = API_Manager().getNews();
   }

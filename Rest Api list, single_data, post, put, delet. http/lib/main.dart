@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart'; 
 import 'package:rest/Pages/CRUDPage.dart';
-import 'package:rest/Pages/Posts.dart';
+import 'package:rest/Pages/AllPosts.dart';
 import 'package:rest/Pages/SinglePostComments.dart'; 
 
 void main() => runApp(MaterialApp(home: Home()));

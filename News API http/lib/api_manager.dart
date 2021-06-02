@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:news/news_model.dart';
 
 class API_Manager {
-  /// must need Uri.parse method
+  /// must need Uri.parse method.
 
   Future<NewsModel> getNews() async {
     var newsModel = null;
