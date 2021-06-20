@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart'; 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class CRUDPage extends StatelessWidget {
@@ -27,9 +27,16 @@ class CRUDPage extends StatelessWidget {
       OutlinedButton(onPressed: function, child: Text(' $title '));
 
   Future postMethod() async {
-    final url = Uri.parse('https://jsonplaceholder.typicode.com/posts');
-    String title = 'titles', body = 'This is the body';
-    int id = 1;
+    // final url = Uri.parse('https://jsonplaceholder.typicode.com/posts');
+    final url = Uri.parse(
+        'https://jwt.dev-ashanur.com/api/student/info?fbclid=IwAR2jxPK7vnB3mQBfhowVhanP8rp98gOfpauwoBqvpfcz8RDcJQFsJ4UbLfg');
+    String title = 'titles';
+    final body = {
+      'name': 'this is name',
+      'email': 'null@gmail.com',
+      'address': 'ddddddddddddddddddddd'
+    };
+    int id =7;
 
     final http.Response response = await http.post(url,
         headers: <String, String>{

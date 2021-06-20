@@ -28,8 +28,8 @@ class _HomeState extends State<Home> {
                 onPressed: updatingAResource,
                 child: Text('updating A Resource')),
             OutlinedButton(
-                onPressed: patchingAResource,
-                child: Text('patching A Resource')),
+                onPressed: fatchingAResource,
+                child: Text('fatching A Resource')),
             OutlinedButton(
                 onPressed: deletingAResource,
                 child: Text('deleting A Resource')),
@@ -47,8 +47,8 @@ class _HomeState extends State<Home> {
     await updateData().then((value) => print(value));
   }
 
-  patchingAResource() async {
-    await patchData().then((value) => print(value));
+  fatchingAResource() async {
+    await fatchData().then((value) => print(value));
   }
 
   deletingAResource() async {
@@ -56,11 +56,18 @@ class _HomeState extends State<Home> {
   }
 
   Future postData() async {
-    final String path = 'https://jsonplaceholder.typicode.com/posts';
+    // final String path = 'https://jsonplaceholder.typicode.com/posts';
+    final String path = 'https://jwt.dev-ashanur.com/api/student/info?fbclid=IwAR2jxPK7vnB3mQBfhowVhanP8rp98gOfpauwoBqvpfcz8RDcJQFsJ4UbLfg';
+    // dynamic data = {
+    //   'title': 'Flutter http post',
+    //   'body': 'Creating A Resource',
+    //   'userId': 1,
+    // };
     dynamic data = {
-      'title': 'Flutter http post',
-      'body': 'Creating A Resource',
-      'userId': 1,
+      'id':7,
+      'name': 'name',
+      'email': 'email@ggggg.com',
+      'address': 'address',
     };
     var response = await dio.post(path,
         data: data,
@@ -83,7 +90,7 @@ class _HomeState extends State<Home> {
     return response;
   }
 
-  Future patchData() async {
+  Future fatchData() async {
     final String path = 'https://jsonplaceholder.typicode.com/posts/1';
     dynamic data = {'title': 'Patch'};
     var response = dio.patch(path,
