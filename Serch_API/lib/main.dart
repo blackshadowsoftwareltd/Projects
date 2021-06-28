@@ -14,6 +14,7 @@ class _HomeState extends State<Home> {
   List<PostModel> _posts = List<PostModel>();
   List<PostModel> _postDesplay;
   bool isLoading = true;
+  var _selected = 'Select';
   @override
   void initState() {
     // TODO: implement initState
@@ -31,7 +32,25 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          DropdownButton<PostModel>(
+            hint: Text(_selected),
+            iconSize: 30,
+            items: _posts.map((PostModel _item) {
+              return DropdownMenuItem<PostModel>(
+                value: _item ,
+                child: Text(_item.id.toString()),
+              );
+            }).toList(),
+            onChanged: (PostModel _selecte) {
+              setState(() {
+                _selected = _selecte.id.toString();
+              });
+            },
+          ),
+        ],
+      ),
       body: ListView.builder(
         itemCount: _posts.length,
         itemBuilder: (context, index) {
