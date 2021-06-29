@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 
-/// as pw. that's means pdf/widgets is not flutter material widgets. so it will be conflict. so mush use as pw
+/// as pw. that's means pdf/widgets is not flutter material widgets. so it will be conflict. so must use as pw
 import 'package:pdf/widgets.dart' as pw;
-import 'package:pdf_macker/Services.dart';
+import 'package:pdf_macker/Services.dart'; 
 
 class SimplePDF extends StatelessWidget {
   @override

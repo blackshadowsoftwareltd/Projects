@@ -90,6 +90,7 @@ class InvoicePage extends StatelessWidget {
 
                   ///
                   final pdfFile = await PdfInvoice.generateInvoice(invoice);
+                  print(pdfFile.path);
                   Services.opentFile(pdfFile);
                 })));
   }
