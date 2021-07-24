@@ -1,9 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:user_ip/ip_details_api.dart';
-import 'package:user_ip/ip_details_model.dart';
 
-void main() => runApp(MaterialApp(home: Home()));
+import 'consumer_provider.dart';
+import 'consumer_screen.dart';
+import 'future_provider/future_provider_screen.dart';
+
+
+void main() => runApp(MaterialApp(
+        home: MultiProvider(providers: [
+      ChangeNotifierProvider<Services>(
+          create: (_) => Services()),
+    ], child: Home())));
 
 class Home extends StatelessWidget {
   @override
@@ -13,26 +21,28 @@ class Home extends StatelessWidget {
     //  print(context.read<DataProvider>().getIp);
     // IPDetailsApi.getIpDetails();
 
-    return Scaffold(appBar: AppBar(),
-      body: Center(
+    return Scaffold(
+      appBar: AppBar(),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            FutureProvider<IpDetailsModel>(
-              create: (context) => IPDetailsApi.getIpDetails(),
-              initialData: IpDetailsModel(),
-              child: IpInfo(),
-            )
+            OutlinedButton(
+                onPressed: () => Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                        builder: (context) => FutureProviderScreen())),
+                child: Text('Future Provider Screen')),
+            OutlinedButton(
+                onPressed: () => Navigator.push(context,
+                    CupertinoPageRoute(builder: (context) => ConsumerScreen())),
+                child: Text('Consumer Screen'))
           ],
         ),
       ),
     );
-  }
-}
-
-class IpInfo extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final dataProvider = Provider.of<IpDetailsModel>(context);
-    return Text(dataProvider.city!=null?dataProvider.city.toString():'...');
   }
 }

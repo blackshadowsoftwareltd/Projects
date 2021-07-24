@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
-import 'package:user_ip/ip_details_model.dart';
+import 'package:user_ip/future_provider/ip_details_model.dart';
 
-import 'ip_api.dart';
+import '../ip_api.dart';
 
 class IPDetailsApi {
   static Future<IpDetailsModel> getIpDetails() async {

@@ -1,19 +1,9 @@
-
-
-
-
 /// This api will return the user's current IP address.
-
-
-
-
-
-
 
 import 'package:http/http.dart' as http;
 
 class IPApi {
-  static Future <String>getIp(context) async {
+  static Future<String> getIp() async {
     String ip;
     var headers = {
       'Authorization':
@@ -28,8 +18,8 @@ class IPApi {
     if (response.statusCode == 200) {
       ip = await response.stream.bytesToString();
       // print(ip);
-    
-      return ip;
+
+      return ip.toString();
     } else {
       print(response.reasonPhrase);
     }
