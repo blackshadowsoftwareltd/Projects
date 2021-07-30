@@ -42,7 +42,8 @@ class _BodyState extends State<Body> {
         future: passanger.isLoad,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            if (passanger.tried == false && passanger.data.length <6) {
+            /// if the passenger list has less than 6 data. the afterLoad method will call again. and the method gets data from API.
+            if (passanger.tried == false && passanger.data.length < 6) {
               passanger.afterLoad(passanger.page);
             }
             return ListView.builder(
@@ -53,7 +54,7 @@ class _BodyState extends State<Body> {
 
                   ///
                   final data = passanger.data[index];
-               data.airline.toString();
+
                   return Contentz(
                       index + 1,
                       passanger.data.length,
@@ -69,31 +70,32 @@ class _BodyState extends State<Body> {
 
   ///
   Widget Contentz(
-          int index, int length, String id,
+          int index,
+          int length,
+          String id,
           // String airline,
-           String name, String trips) =>
-      Column(
-        children: [
+          String name,
+          String trips) =>
+      Column(children: [
+        Container(
+            width: double.infinity,
+            color: Colors.green[300],
+            margin: EdgeInsets.all(5),
+            padding: EdgeInsets.all(5),
+            child: Column(children: [
+              Text('$index length'),
+              Text(id.toString()),
+              // Text(airline.toString()),
+              Text(name.toString()),
+              Text(trips.toString())
+            ])),
+
+        /// if original index +1 == length.
+        if (index == length)
           Container(
+              height: 40,
+              alignment: Alignment.bottomCenter,
               width: double.infinity,
-              color: Colors.green[300],
-              margin: EdgeInsets.all(5),
-              padding: EdgeInsets.all(5),
-              child: Column(
-                children: [
-                  Text('$index length'),
-                  Text(id.toString()),
-                  // Text(airline.toString()),
-                  Text(name.toString()),
-                  Text(trips.toString()),
-                ],
-              )),
-          if (index == length)
-            Container(
-                height: 40,
-                alignment: Alignment.bottomCenter,
-                width: double.infinity,
-                child: Text('Loading...'))
-        ],
-      );
+              child: Text('Loading...'))
+      ]);
 }

@@ -16,14 +16,7 @@ class PassengerProvider extends ChangeNotifier {
   int? get totalPage => _totalPage;
   List<Passenger> get data => _data;
 
-  ///
-  void setTried() {
-    _tried = true;
-    notifyListeners();
-  }
-
-  ///
-
+  /// Initial load
   void load() {
     if (isLoad == null) {
       _isLoad = PassangerApi.getPassanger(page)!.then((value) {
@@ -36,8 +29,12 @@ class PassengerProvider extends ChangeNotifier {
                 trips: e.trips,
                 v: e.v)))
             .toList();
+
+        /// After calling this method automatic page number will be increased.
         _page++;
-        if (data.length < 10) {
+
+        /// condition for the _tried variable
+        if (data.length < 6) {
           _tried = false;
         } else {
           _tried = true;
@@ -48,9 +45,9 @@ class PassengerProvider extends ChangeNotifier {
     }
   }
 
+  /// if the condition is true>> data.length < 6
   void afterLoad(int page) {
-    if (tried == false && data.length < 10) {
-
+    if (tried == false && data.length < 6) {
       _isLoad = PassangerApi.getPassanger(page)!.then((value) {
         _totalPage = value.totalPages!;
         value.data!
@@ -61,9 +58,12 @@ class PassengerProvider extends ChangeNotifier {
                 trips: e.trips,
                 v: e.v)))
             .toList();
+
+        /// After calling this method automatic page number will be increased.
         _page++;
 
-        if (data.length < 10) {
+        /// condition for the _tried variable
+        if (data.length < 6) {
           _tried = false;
         } else {
           _tried = true;
@@ -75,6 +75,7 @@ class PassengerProvider extends ChangeNotifier {
     }
   }
 
+  /// Pagination load.
   Future<void> reload(int page) async {
     await PassangerApi.getPassanger(page)!.then((value) {
       _totalPage = value.totalPages!;
@@ -86,6 +87,8 @@ class PassengerProvider extends ChangeNotifier {
               trips: e.trips,
               v: e.v)))
           .toList();
+
+      /// After calling this method automatic page number will be increased.
       _page++;
       notifyListeners();
       return true;
