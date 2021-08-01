@@ -7,7 +7,7 @@ class PassengerProvider extends ChangeNotifier {
   bool _tried = false;
   int _page = 1;
   int? _totalPage;
-  List<Passenger> _data = [];
+  List<Passenger> _data = []; // Empty list.
 
   ///
   Future<bool>? get isLoad => _isLoad;

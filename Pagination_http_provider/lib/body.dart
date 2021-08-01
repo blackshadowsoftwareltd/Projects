@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pagination/passanger_model.dart';
 import 'package:pagination/providers.dart';
 import 'package:provider/provider.dart';
+
+import 'airline_card.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -10,6 +13,7 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   final ScrollController controller = ScrollController();
+  double? h, w;
 
   ///
   @override
@@ -50,52 +54,36 @@ class _BodyState extends State<Body> {
                 controller: controller,
                 itemCount: passanger.data.length,
                 itemBuilder: (context, index) {
-                  print(passanger.data.length);
+                  String? id, name, headQuaters, imgPath;
 
                   ///
                   final data = passanger.data[index];
 
-                  return Contentz(
-                      index + 1,
-                      passanger.data.length,
-                      data.id.toString(),
-                      // data.airline,
-                      data.name.toString(),
-                      data.trips.toString());
+                  /// retrieving the airline's data.
+                  data.airline!
+                      .map((Airline e) => {
+                            id = e.id.toString(),
+                            name = e.name,
+                            headQuaters = e.headQuaters,
+                            imgPath = e.logo
+                          })
+                      .toList();
+
+                  return AirLineCard(
+                      isTrue: index + 1 == passanger.data.length,
+                      name: name!,
+                      headQuaters: headQuaters!,
+                      imgPath: imgPath!);
                 });
           } else
-            return Center(child: Text('Loading...'));
+            return Center(child: normalText('Loading...'));
         });
   }
-
-  ///
-  Widget Contentz(
-          int index,
-          int length,
-          String id,
-          // String airline,
-          String name,
-          String trips) =>
-      Column(children: [
-        Container(
-            width: double.infinity,
-            color: Colors.green[300],
-            margin: EdgeInsets.all(5),
-            padding: EdgeInsets.all(5),
-            child: Column(children: [
-              Text('$index length'),
-              Text(id.toString()),
-              // Text(airline.toString()),
-              Text(name.toString()),
-              Text(trips.toString())
-            ])),
-
-        /// if original index +1 == length.
-        if (index == length)
-          Container(
-              height: 40,
-              alignment: Alignment.bottomCenter,
-              width: double.infinity,
-              child: Text('Loading...'))
-      ]);
+    ///
+  Widget normalText(label) => Text(
+        label,
+        overflow: TextOverflow.visible,
+        maxLines: 4,
+        style: TextStyle(color: Colors.green[900], fontWeight: FontWeight.bold),
+      );
 }

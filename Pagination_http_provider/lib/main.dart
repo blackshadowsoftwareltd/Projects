@@ -22,10 +22,8 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     // PassangerApi.getPassanger();
     return Scaffold(
-      appBar: AppBar(),
-      body:  Body(),
-      
- 
+      appBar: AppBar(title: Text('Pagination with http & provider'),),
+      body:  Body(),    
     );
   }
 }
