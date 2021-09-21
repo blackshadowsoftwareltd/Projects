@@ -18,6 +18,7 @@ class PassengerProvider extends ChangeNotifier {
 
   /// Initial load
   void load() {
+
     if (isLoad == null) {
       _isLoad = PassangerApi.getPassanger(page)!.then((value) {
         _totalPage = value.totalPages!;

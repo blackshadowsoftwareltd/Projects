@@ -13,6 +13,7 @@ class AirLineCard extends StatelessWidget {
       : super(key: key);
   double? h;
   double? w;
+
   @override
   Widget build(BuildContext context) {
     h = MediaQuery.of(context).size.height;
@@ -25,21 +26,19 @@ class AirLineCard extends StatelessWidget {
           decoration: BoxDecoration(
               color: Colors.green[100],
               borderRadius: BorderRadius.circular(10)),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              img(imgPath),
-              Container(
-                  width: w! * .6,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        normalText('Name: $name'),
-                        normalText('Head Quaters: $headQuaters')
-                      ])),
-            ],
-          )),
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            img(imgPath),
+            Container(
+                width: w! * .6,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      normalText('Name: $name'),
+                      normalText('Head Quaters: $headQuaters')
+                    ]))
+          ])),
 
       /// if original index +1 == length.
       if (isTrue)

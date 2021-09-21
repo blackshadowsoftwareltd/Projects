@@ -79,11 +79,10 @@ class _BodyState extends State<Body> {
             return Center(child: normalText('Loading...'));
         });
   }
-    ///
-  Widget normalText(label) => Text(
-        label,
-        overflow: TextOverflow.visible,
-        maxLines: 4,
-        style: TextStyle(color: Colors.green[900], fontWeight: FontWeight.bold),
-      );
+
+  ///
+  Widget normalText(label) => Text(label,
+      overflow: TextOverflow.visible,
+      maxLines: 4,
+      style: TextStyle(color: Colors.green[900], fontWeight: FontWeight.bold));
 }
