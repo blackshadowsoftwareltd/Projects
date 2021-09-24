@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 
 part 'datas.g.dart';
 
-@HiveType(typeId: 1)
+@HiveType(typeId: 2)
 class Person {
   @HiveField(0)
   late String name;

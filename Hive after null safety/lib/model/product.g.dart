@@ -1,37 +1,35 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'datas.dart';
+part of 'product.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class PersonAdapter extends TypeAdapter<Person> {
+class ProductModelAdapter extends TypeAdapter<ProductModel> {
   @override
-  final int typeId = 2;
+  final int typeId = 3;
 
   @override
-  Person read(BinaryReader reader) {
+  ProductModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Person()
-      ..name = fields[0] as String
-      ..age = fields[1] as int
-      ..friends = (fields[2] as List).cast<Person>();
+    return ProductModel(
+      productName: fields[0] as String,
+      price: fields[1] as double,
+    );
   }
 
   @override
-  void write(BinaryWriter writer, Person obj) {
+  void write(BinaryWriter writer, ProductModel obj) {
     writer
-      ..writeByte(3)
-      ..writeByte(0)
-      ..write(obj.name)
-      ..writeByte(1)
-      ..write(obj.age)
       ..writeByte(2)
-      ..write(obj.friends);
+      ..writeByte(0)
+      ..write(obj.productName)
+      ..writeByte(1)
+      ..write(obj.price);
   }
 
   @override
@@ -40,7 +38,7 @@ class PersonAdapter extends TypeAdapter<Person> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is PersonAdapter &&
+      other is ProductModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
