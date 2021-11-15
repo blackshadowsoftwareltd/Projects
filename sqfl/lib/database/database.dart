@@ -1,5 +1,7 @@
 import 'package:sqfl/model/note.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:sqflite/sqlite_api.dart';
+import 'package:path/path.dart';
 
 class NotesDatabase {
   static final NotesDatabase instance = NotesDatabase._init();
@@ -19,8 +21,9 @@ class NotesDatabase {
 
   ///
   Future<Database> _initDB(String filePath) async {
-    final dbPath = await getDatabasesPath();
-    final path = join(dbPath, filePath);
+    var dbPath = await getDatabasesPath();
+    var path = join(dbPath,
+        filePath); // the join method is depend of the import 'package:path/path.dart';
     return await openDatabase(path, version: 1, onCreate: _createDB);
   }
 
