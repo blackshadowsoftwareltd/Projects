@@ -26,7 +26,7 @@ class DataBaseHelper {
 
   _initiateDatabase() async {
     Directory directory = await getApplicationDocumentsDirectory();
-    String path = join(directory.path, _dbName);
+    String path = join(directory.path, _dbName); // the join method is depend of the import 'package:path/path.dart';
     return await openDatabase(path, version: _dbVersion, onCreate: _onCreate);
   }
 
