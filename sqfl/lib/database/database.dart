@@ -29,10 +29,10 @@ class NotesDatabase {
 
   /// create db
   Future _createDB(Database db, int version) async {
-    final idType = 'INTEGER PRIMARY EY AUTOINCREMENT';
-    final boolType = 'BOOLEAN NOT NULL';
-    final integerType = 'INTEGER NOT NULL';
-    final textType = 'TEXT NOT NULL';
+    const idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
+    const boolType = 'BOOLEAN NOT NULL';
+    const integerType = 'INTEGER NOT NULL';
+    const textType = 'TEXT NOT NULL';
     await db.execute('''
   CREATE TABLE $tableNotes(
 ${NoteFields.id}$idType,
@@ -43,6 +43,35 @@ ${NoteFields.description}$textType,
 ${NoteFields.time}$textType,
   )
   ''');
+  }
+
+  Future<Note> create(Note note) async {
+    final db = await instance.database;
+
+    ///
+// final json=note.toJson();
+// final column='${NoteFields.title}, ${NoteFields.description}, ${NoteFields.time}';
+// final values='${json[NoteFields.title]}, ${json[NoteFields.description]}, ${json[NoteFields.time]}';
+// final id=await db.rawInsert('INSERT INTO table_name ($column) VALUES ($values)');
+    ///
+
+    final id = await db.insert(tableNotes, note.toMap());
+    return note.copyWith(id: id);
+  }
+
+  Future<Note> readNote(int id) async {
+    final db = await instance.database;
+
+    final maps = await db.query(tableNotes,
+        columns: NoteFields.values,
+        where: '${NoteFields.id}=?',
+        whereArgs: [id]);
+
+    if (maps.isNotEmpty) {
+      return Note.fromMap(maps.first);
+    } else {
+      throw Exception('ID $id not found');
+    }
   }
 
   /// close db
