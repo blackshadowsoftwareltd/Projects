@@ -49,16 +49,18 @@ ${NoteFields.time}$textType,
     final db = await instance.database;
 
     ///
-// final json=note.toJson();
-// final column='${NoteFields.title}, ${NoteFields.description}, ${NoteFields.time}';
-// final values='${json[NoteFields.title]}, ${json[NoteFields.description]}, ${json[NoteFields.time]}';
-// final id=await db.rawInsert('INSERT INTO table_name ($column) VALUES ($values)');
-    ///
+    // final json=note.toJson();
+    // final column='${NoteFields.title}, ${NoteFields.description}, ${NoteFields.time}';
+    // final values='${json[NoteFields.title]}, ${json[NoteFields.description]}, ${json[NoteFields.time]}';
+    // final id=await db.rawInsert('INSERT INTO table_name ($column) VALUES ($values)');
+
+    /// same things like under this line
 
     final id = await db.insert(tableNotes, note.toMap());
     return note.copyWith(id: id);
   }
 
+  /// read single note
   Future<Note> readNote(int id) async {
     final db = await instance.database;
 
@@ -72,6 +74,37 @@ ${NoteFields.time}$textType,
     } else {
       throw Exception('ID $id not found');
     }
+  }
+
+  /// read multiple notes
+  Future<List<Note>> readAllNotes(int id) async {
+    final _db = await instance.database;
+    final _orderBy = '${NoteFields.time} ASC';
+
+    ///
+    // final _result =
+    //     await _db.rawQuery('SENECT * FROM $tableNotes ORDER BY $_orderBy');
+    ///same things like under this line
+
+    final _result = await _db.query(tableNotes, orderBy: _orderBy);
+    return _result.map((json) => Note.fromMap(json)).toList();
+  }
+
+  Future<int> update(Note note) async {
+    final _db = await instance.database;
+
+    return _db.update(
+      tableNotes,
+      note.toMap(),
+      where: '${NoteFields.id}=?',
+      whereArgs: [note.id],
+    );
+  }
+
+  Future<int> delete(int id) async {
+    final _db = await instance.database;
+    return await _db
+        .delete(tableNotes, where: '${NoteFields.id}=?', whereArgs: [id]);
   }
 
   /// close db

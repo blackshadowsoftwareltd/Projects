@@ -39,7 +39,7 @@ class Note {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'isImportant': isImportant ? 1 : 0,
+      'isImportant': isImportant,
       'number': number,
       'title': title,
       'description': description,
