@@ -77,7 +77,7 @@ ${NoteFields.time}$textType,
   }
 
   /// read multiple notes
-  Future<List<Note>> readAllNotes(int id) async {
+  Future<List<Note>> readAllNotes() async {
     final _db = await instance.database;
     final _orderBy = '${NoteFields.time} ASC';
 
