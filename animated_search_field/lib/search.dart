@@ -2,129 +2,203 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomSearchField extends StatefulWidget {
-  const CustomSearchField({Key? key}) : super(key: key);
+  const CustomSearchField({
+    Key? key,
+    this.searchBarWidth,
+    this.searchBarHeight,
+    this.previousScreen,
+    this.backIconColor,
+    this.closeIconColor,
+    this.searchIconColor,
+    this.centerTitle,
+    this.centerTitleStyle,
+    this.searchFieldHeight,
+    this.searchFieldDecoration,
+    this.cursorColor,
+    this.textStyle,
+    this.hintText,
+    this.hintStyle,
+    required this.onChanged,
+    required this.searchTextEditingController,
+    this.horizontalPadding,
+    this.verticalPadding,
+    required this.isBackButtonVisible,
+    this.backIcon,
+  }) : super(key: key);
 
+  ///
+  final double? searchBarWidth;
+  final double? searchBarHeight;
+  final double? searchFieldHeight;
+  final double? horizontalPadding;
+  final double? verticalPadding;
+  final Widget? previousScreen;
+  final Color? backIconColor;
+  final Color? closeIconColor;
+  final Color? searchIconColor;
+  final Color? cursorColor;
+  final String? centerTitle;
+  final String? hintText;
+  final bool isBackButtonVisible;
+  final IconData? backIcon;
+  final TextStyle? centerTitleStyle;
+  final TextStyle? textStyle;
+  final TextStyle? hintStyle;
+  final Decoration? searchFieldDecoration;
+  final TextEditingController searchTextEditingController;
+  final Function(String) onChanged;
+
+  ///
   @override
   _CustomSearchFieldState createState() => _CustomSearchFieldState();
 }
 
 class _CustomSearchFieldState extends State<CustomSearchField> {
   late bool _isSearching;
-  late String _searchText;
-  late TextEditingController _searchTextEditingController;
-  late double _width;
 
   @override
   void initState() {
     super.initState();
     _isSearching = false;
-    _searchText = '';
-    _searchTextEditingController = TextEditingController();
-    _width = 300;
-
-    _searchTextEditingController.addListener(() {
-      debugPrint(_searchText);
-    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: _width,
-      height: 100,
-      child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            AnimatedContainer(
-                curve: Curves.easeInOutCirc,
-                width: _isSearching ? 0 : 35,
-                height: _isSearching ? 0 : 35,
-                duration: const Duration(milliseconds: 500),
-                child: const FittedBox(child: KBackButton(padding: 0))),
-
-            /// text
-            AnimatedContainer(
-                curve: Curves.easeInOutCirc,
-                width: _isSearching ? 0 : 120,
-                height: _isSearching ? 30 : 30,
-                duration: const Duration(milliseconds: 500),
-                child: FittedBox(
-                    child: Text('Title',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: Theme.of(context).textTheme.subtitle1!.color,
-                            fontSize: 16)))),
-
-            /// close search
-            AnimatedContainer(
-                curve: Curves.easeInOutCirc,
-                width: _isSearching ? 35 : 0,
-                height: _isSearching ? 35 : 0,
-                duration: const Duration(milliseconds: 500),
-                child: FittedBox(
-                    child: KCustomButton(
-                        widget: Padding(
-                          padding: const EdgeInsets.all(3),
-                          child: Icon(
-                            Icons.close,
-                            color: Colors.black.withOpacity(.7),
-                          ),
+    final _searchFieldHeight = widget.searchFieldHeight ?? 40;
+    final _hPadding =
+        widget.horizontalPadding != null ? widget.horizontalPadding! * 2 : 0;
+    final _searchBarWidth =
+        widget.searchBarWidth ?? MediaQuery.of(context).size.width - _hPadding;
+    return Padding(
+        padding: EdgeInsets.symmetric(
+            horizontal: widget.horizontalPadding ?? 0,
+            vertical: widget.verticalPadding ?? 0),
+        child: SizedBox(
+            width: _searchBarWidth,
+            height: widget.searchBarHeight ?? 50,
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  /// back Button
+                  widget.isBackButtonVisible
+                      ? AnimatedContainer(
+                          curve: Curves.easeInOutCirc,
+                          width: _isSearching ? 0 : 35,
+                          height: _isSearching ? 0 : 35,
+                          duration: const Duration(milliseconds: 500),
+                          child: FittedBox(
+                              child: KBackButton(
+                                  icon: widget.backIcon,
+                                  iconColor: widget.backIconColor,
+                                  previousScreen: widget.previousScreen)))
+                      : AnimatedContainer(
+                          curve: Curves.easeInOutCirc,
+                          width: _isSearching ? 0 : 35,
+                          height: _isSearching ? 0 : 35,
+                          duration: const Duration(milliseconds: 500),
                         ),
-                        onPressed: () {
-                          _isSearching = false;
-                          _searchTextEditingController.clear();
-                          _searchText = '';
-                          setState(() {});
-                        }))),
 
-            /// input panel
-            AnimatedContainer(
-                curve: Curves.easeInOutCirc,
-                duration: const Duration(milliseconds: 500),
-                width: _isSearching ? _width * .8 : 0,
-                height: _isSearching ? 45 : 25,
-                padding: const EdgeInsets.symmetric(horizontal: 5),
-                decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(.05),
-                    border: Border.all(
-                        color: Colors.black.withOpacity(.2), width: .5),
-                    borderRadius: BorderRadius.circular(15)),
-                child: TextField(
-                    controller: _searchTextEditingController,
-                    cursorColor: Colors.lightBlue,
-                    style: const TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.w300),
-                    decoration: const InputDecoration(
-                        hintText: 'Search here...',
-                        hintStyle: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.w300),
-                        disabledBorder:
-                            OutlineInputBorder(borderSide: BorderSide.none),
-                        focusedBorder:
-                            OutlineInputBorder(borderSide: BorderSide.none),
-                        enabledBorder:
-                            OutlineInputBorder(borderSide: BorderSide.none),
-                        border:
-                            OutlineInputBorder(borderSide: BorderSide.none)),
-                    onChanged: (text) => _searchText = text)),
+                  /// text
+                  AnimatedContainer(
+                      curve: Curves.easeInOutCirc,
+                      width: _isSearching ? 0 : _searchBarWidth - 100,
+                      height: _isSearching ? 30 : 30,
+                      duration: const Duration(milliseconds: 500),
+                      alignment: Alignment.center,
+                      child: FittedBox(
+                          child: Text(widget.centerTitle ?? 'Title',
+                              textAlign: TextAlign.center,
+                              style: widget.centerTitleStyle ??
+                                  const TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black,
+                                      fontSize: 20)))),
 
-            ///  search button
-            AnimatedContainer(
-                curve: Curves.easeInOutCirc,
-                duration: const Duration(milliseconds: 500),
-                width: _isSearching ? 0 : 30,
-                height: _isSearching ? 0 : 30,
-                child: FittedBox(
-                    child: KCustomButton(
-                        widget: Padding(
-                            padding: const EdgeInsets.all(3),
-                            child: Icon(Icons.search,
-                                size: 30, color: Colors.black.withOpacity(.7))),
-                        onPressed: () => setState(() => _isSearching = true))))
-          ]),
-    );
+                  /// close search
+                  AnimatedContainer(
+                      curve: Curves.easeInOutCirc,
+                      width: _isSearching ? 35 : 0,
+                      height: _isSearching ? 35 : 0,
+                      duration: const Duration(milliseconds: 500),
+                      child: FittedBox(
+                          child: KCustomButton(
+                              widget: Padding(
+                                  padding: const EdgeInsets.all(3),
+                                  child: Icon(Icons.close,
+                                      color: widget.closeIconColor ??
+                                          Colors.black.withOpacity(.7))),
+                              onPressed: () {
+                                _isSearching = false;
+                                widget.searchTextEditingController.clear();
+
+                                setState(() {});
+                              }))),
+
+                  /// input panel
+                  AnimatedContainer(
+                      curve: Curves.easeInOutCirc,
+                      duration: const Duration(milliseconds: 500),
+                      width: _isSearching
+                          ? _searchBarWidth -
+                              55 -
+                              (widget.horizontalPadding ?? 0 * 2)
+                          : 0,
+                      height: _isSearching ? _searchFieldHeight : 20,
+                      margin: EdgeInsets.only(
+                          left: _isSearching ? 5 : 0,
+                          right: _isSearching ? 10 : 0),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      alignment: Alignment.center,
+                      decoration: widget.searchFieldDecoration ??
+                          BoxDecoration(
+                              color: Colors.black.withOpacity(.05),
+                              border: Border.all(
+                                  color: Colors.black.withOpacity(.2),
+                                  width: .5),
+                              borderRadius: BorderRadius.circular(15)),
+                      child: TextField(
+                          controller: widget.searchTextEditingController,
+                          cursorColor: widget.cursorColor ?? Colors.lightBlue,
+                          style: widget.textStyle ??
+                              const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w300),
+                          decoration: InputDecoration(
+                              contentPadding: EdgeInsets.zero,
+                              hintText: widget.hintText ?? 'Search here...',
+                              hintStyle: widget.hintStyle ??
+                                  const TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w300),
+                              disabledBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide.none),
+                              focusedBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide.none),
+                              enabledBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide.none),
+                              border: const OutlineInputBorder(
+                                  borderSide: BorderSide.none)),
+                          onChanged: widget.onChanged)),
+
+                  ///  search button
+                  AnimatedContainer(
+                      curve: Curves.easeInOutCirc,
+                      duration: const Duration(milliseconds: 500),
+                      width: _isSearching ? 0 : 35,
+                      height: _isSearching ? 0 : 35,
+                      child: FittedBox(
+                          child: KCustomButton(
+                              widget: Padding(
+                                  padding: const EdgeInsets.all(5),
+                                  child: Icon(Icons.search,
+                                      size: 35,
+                                      color: widget.searchIconColor ??
+                                          Colors.black.withOpacity(.7))),
+                              onPressed: () =>
+                                  setState(() => _isSearching = true))))
+                ])));
   }
 }
 
@@ -164,40 +238,39 @@ class KCustomButton extends StatelessWidget {
 class KBackButton extends StatelessWidget {
   final Widget? previousScreen;
   final Color? iconColor;
-  final double? padding;
+  final IconData? icon;
   const KBackButton(
-      {Key? key, this.previousScreen, this.iconColor, this.padding})
+      {Key? key,
+      required this.previousScreen,
+      required this.iconColor,
+      required this.icon})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: EdgeInsets.all(padding ?? 5),
-        child: ClipRRect(
+    return ClipRRect(
+        borderRadius: BorderRadius.circular(50),
+        child: Material(
+            color: Colors.transparent,
             borderRadius: BorderRadius.circular(50),
-            child: Material(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(50),
-                child: InkWell(
-                    splashColor: Theme.of(context).primaryColor.withOpacity(.2),
-                    highlightColor:
-                        Theme.of(context).primaryColor.withOpacity(.05),
-                    onTap: () async {
-                      previousScreen == null
-                          ? Navigator.pop(context)
-                          : Navigator.pushReplacement(
-                              context,
-                              CupertinoPageRoute(
-                                  builder: (context) => previousScreen!));
-                    },
-                    child: Padding(
-                        padding: const EdgeInsets.all(3),
-                        child: SizedBox(
-                            width: 30,
-                            height: 30,
-                            child: Icon(Icons.arrow_back_ios_new,
-                                color:
-                                    iconColor ?? Colors.black.withOpacity(.7),
-                                size: 25)))))));
+            child: InkWell(
+                splashColor: Theme.of(context).primaryColor.withOpacity(.2),
+                highlightColor: Theme.of(context).primaryColor.withOpacity(.05),
+                onTap: () async {
+                  previousScreen == null
+                      ? Navigator.pop(context)
+                      : Navigator.pushReplacement(
+                          context,
+                          CupertinoPageRoute(
+                              builder: (context) => previousScreen!));
+                },
+                child: Padding(
+                    padding: const EdgeInsets.all(3),
+                    child: SizedBox(
+                        width: 30,
+                        height: 30,
+                        child: Icon(icon ?? Icons.arrow_back_ios_new,
+                            color: iconColor ?? Colors.black.withOpacity(.7),
+                            size: 25))))));
   }
 }
