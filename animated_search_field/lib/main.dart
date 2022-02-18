@@ -38,13 +38,12 @@ class _HomeState extends State<Home> {
                           offset: Offset(0, 5))
                     ]),
                     child: Center(
-                      child: CustomSearchField(
-                          isBackButtonVisible: true,
-                          backIconColor: Colors.black,
-                          centerTitle: 'App Title',
-                          onChanged: (text) => debugPrint(text),
-                          searchTextEditingController: controller,
-                          horizontalPadding: 5),
-                    )))));
+                        child: CustomSearchField(
+                            isBackButtonVisible: true,
+                            backIconColor: Colors.black,
+                            centerTitle: 'App Title',
+                            onChanged: (text) => debugPrint(text),
+                            searchTextEditingController: controller,
+                            horizontalPadding: 5))))));
   }
 }
