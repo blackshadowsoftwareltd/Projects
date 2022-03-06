@@ -24,7 +24,7 @@ class CustomSearchField extends StatelessWidget {
     required this.searchTextEditingController,
     this.horizontalPadding,
     this.verticalPadding,
-    required this.isBackButtonVisible,
+    this.isBackButtonVisible,
     this.backIcon,
     this.duration,
   }) : super(key: key);
@@ -42,7 +42,7 @@ class CustomSearchField extends StatelessWidget {
   final Color? cursorColor;
   final String? centerTitle;
   final String? hintText;
-  final bool isBackButtonVisible;
+  final bool? isBackButtonVisible;
   final IconData? backIcon;
   final TextStyle? centerTitleStyle;
   final TextStyle? textStyle;
@@ -61,6 +61,7 @@ class CustomSearchField extends StatelessWidget {
     final _hPadding = horizontalPadding != null ? horizontalPadding! * 2 : 0;
     final _searchBarWidth =
         searchBarWidth ?? MediaQuery.of(context).size.width - _hPadding;
+    final _isBackButtonVisible = isBackButtonVisible ?? true;
     return AnimatedBuilder(
         animation: Listenable.merge([_controller]),
         builder: (context, snapshot) {
@@ -77,7 +78,7 @@ class CustomSearchField extends StatelessWidget {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         /// back Button
-                        isBackButtonVisible
+                        _isBackButtonVisible
                             ? AnimatedOpacity(
                                 opacity: _controller.isSearching ? 0 : 1,
                                 duration: _duration,

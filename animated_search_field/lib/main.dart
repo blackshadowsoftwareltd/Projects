@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'search.dart';
 
+/// animation_search_bar
 void main() =>
     runApp(const MaterialApp(home: Home(), debugShowCheckedModeBanner: false));
 
@@ -39,7 +39,6 @@ class _HomeState extends State<Home> {
                     ]),
                     child: Center(
                         child: CustomSearchField(
-                            isBackButtonVisible: true,
                             backIconColor: Colors.black,
                             centerTitle: 'App Title',
                             onChanged: (text) => debugPrint(text),
