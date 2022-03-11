@@ -17,18 +17,24 @@ class _HomeState extends State<Home> {
     return Scaffold(
         body: Center(
             child: GestureDetector(
+      onPanStart: (details) {
+        final _dx = details.globalPosition.dx;
+        final _dy = details.globalPosition.dy;
+        final _start = offsetBoxes!.where((e) {
+          return _dx > e.xf! && _dx < e.xe! && _dy > e.yf! && _dy < e.ye!;
+        }).toList();
+        final _index = offsetBoxes!.indexOf(_start.first);
+        print('start $_index');
+      },
       onPanUpdate: (details) {
         final _dx = details.globalPosition.dx;
         final _dy = details.globalPosition.dy;
-        // print(
-        //     'Offset: ${details.globalPosition.dx}, ${details.globalPosition.dy}');
-        final _offset = offsetBoxes!.first;
-        if (_dx > _offset.xf! &&
-            _dx < _offset.xe! &&
-            _dy > _offset.yf! &&
-            _dy < _offset.ye!) {
-          print('1');
-        }
+        final _start = offsetBoxes!.where((e) {
+          return _dx >= e.xf! && _dx <= e.xe! && _dy >= e.yf! && _dy <= e.ye!;
+        }).toList();
+        print('.................... ${_start.length}');
+        final _index = offsetBoxes!.indexOf(_start.first);
+        print('Last $_index');
       },
       child: Container(
           color: Colors.green,
@@ -75,7 +81,7 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 100,
-      width: 80,
+      width: 100,
       decoration: BoxDecoration(
           color: Colors.orange,
           border: Border.all(width: 2, color: Colors.black)),
