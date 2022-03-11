@@ -45,16 +45,15 @@ class _HomeState extends State<Home> {
                 final Offset offset = renderBox.localToGlobal(Offset.zero);
                 final Size size =
                     renderBox.size; // or _widgetKey.currentContext?.size
-                print('xf ${offset.dx} xe ${offset.dx + size.width}');
-                if (offsetBoxes == null) {
+                // print('xf ${offset.dx} xe ${offset.dx + size.width}');
+                if (offsetBoxes?[index].xf == null) {
                   final _data = OffsetDetails(
                       xf: offset.dx,
                       xe: offset.dx + size.width,
                       yf: offset.dy,
                       ye: offset.dy + size.height);
                   offsetBoxes?[index] = _data;
-                  print(offsetBoxes![index]);
-                }
+                } else {}
               });
 
               return Button(key: keys[index], index: index);
