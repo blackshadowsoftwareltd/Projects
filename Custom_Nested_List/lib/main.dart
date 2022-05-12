@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +16,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('widget built');
     return Scaffold(
         appBar: AppBar(title: const Text('Nested List')),
         body: LayoutBuilder(builder: (context, constraint) {
@@ -23,9 +26,7 @@ class Home extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final _listOfData = state.listOfData[index];
                   return Tile(
-                      constraint: constraint,
-                      data: _listOfData,
-                      selectedModel: state.selectedModel);
+                      index: index, constraint: constraint, data: _listOfData);
                 });
           });
         }));
@@ -36,58 +37,34 @@ class Tile extends StatelessWidget {
   const Tile(
       {Key? key,
       required this.data,
-      required this.selectedModel,
-      required this.constraint})
+      required this.constraint,
+      required this.index})
       : super(key: key);
-  final Model data;
-  final Model? selectedModel;
+  final int? index;
+  final Model? data;
   final BoxConstraints constraint;
   @override
   Widget build(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
-    return Consumer<ListProvider>(
-      builder: (_, state, __) {
-        return Container(
-          margin: const EdgeInsets.all(3),
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          color: Colors.green.shade100,
-          child: Column(
-            children: [
-              SizedBox(
+    return Consumer<ListProvider>(builder: (_, state, __) {
+      return InkWell(
+          onTap: data!.data == null
+              ? null
+              : () {
+                  state.addList(
+                      index: index!, middleList: data!.data!, single: data!);
+                },
+          child: Container(
+              decoration: BoxDecoration(color: Colors.green.shade100),
+              margin:
+                  EdgeInsets.fromLTRB(data!.data != null ? 10 : 30, 3, 3, 3),
+              padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+              child: SizedBox(
                   width: _width,
-                  child: OutlinedButton(
-                      onPressed: () {
-                        state.selectedModel = data;
-                      },
-                      child: Text(data.index.toString()))),
-              Container(
-                height: data == selectedModel ? constraint.maxHeight : 0,
-                color: Colors.green,
-                child: ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: data.values.length,
-                    itemBuilder: (context, i) {
-                      final _subData = data.values[i];
-                      return SubTile(data: _subData);
-                    }),
-              )
-            ],
-          ),
-        );
-      },
-    );
-  }
-}
-
-class SubTile extends StatelessWidget {
-  const SubTile({Key? key, required this.data}) : super(key: key);
-  final int data;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
-        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 20),
-        color: Colors.white,
-        child: Text(data.toString()));
+                  child: Text(
+                      data!.name! +
+                          ' --+-- i $index',
+                      style: const TextStyle(fontSize: 18)))));
+    });
   }
 }
