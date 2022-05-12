@@ -54,17 +54,39 @@ class Tile extends StatelessWidget {
                   state.addList(
                       index: index!, middleList: data!.data!, single: data!);
                 },
-          child: Container(
-              decoration: BoxDecoration(color: Colors.green.shade100),
-              margin:
-                  EdgeInsets.fromLTRB(data!.data != null ? 10 : 30, 3, 3, 3),
-              padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
-              child: SizedBox(
-                  width: _width,
-                  child: Text(
-                      data!.name! +
-                          ' --+-- i $index',
-                      style: const TextStyle(fontSize: 18)))));
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              if (data!.data == null)
+                Container(
+                    height: 28,
+                    width: 10,
+                    margin: const EdgeInsets.only(left: 5),
+                    decoration: BoxDecoration(color: Colors.green.shade100)),
+              Container(
+                  height: 28,
+                  width: 10,
+                  margin: const EdgeInsets.only(left: 5),
+                  decoration: BoxDecoration(color: Colors.green.shade400)),
+              Expanded(
+                child: Container(
+                    margin:
+                        const EdgeInsets.symmetric(vertical: 3, horizontal: 5),
+                    height: 25,
+                    decoration: BoxDecoration(
+                        color: Colors.green.shade100,
+                        borderRadius: const BorderRadius.horizontal(
+                            left: Radius.circular(20),
+                            right: Radius.circular(50))),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    alignment: Alignment.centerLeft,
+                    child: SizedBox(
+                        width: _width,
+                        child: Text(data!.name! + ' --+-- i $index',
+                            style: const TextStyle(fontSize: 18)))),
+              ),
+            ],
+          ));
     });
   }
 }
