@@ -5,8 +5,8 @@ class ListProvider extends ChangeNotifier {
   List<Model> get newList => _newList;
 
   ///? initialize list
-  List<Model> listOfData = List<Model>.generate(10, (index) {
-    final x = List<Model>.generate(10,
+  List<Model> listOfData = List<Model>.generate(10000, (index) {
+    final x = List<Model>.generate(1000,
         (i) => Model(name: '$index Sub Tile $i', data: null, values: null));
     return Model(name: 'Tile $index', values: null, data: x);
   });
