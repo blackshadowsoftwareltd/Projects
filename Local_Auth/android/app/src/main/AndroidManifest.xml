@@ -1,5 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.local_auth_test">
+              package="com.example.app">
+              
+  <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
+
    <application
         android:label="local_auth_test"
         android:name="${applicationName}"
