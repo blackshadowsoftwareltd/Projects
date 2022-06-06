@@ -56,12 +56,13 @@ class _HomeState extends State<Home> {
               ElevatedButton(
                   onPressed: _checkBiometrics,
                   child: const Text('Check Biobetrics')),
-              // ///?
-              // const Divider(height: 50),
-              // Text('Available biobetrics: $_availableBiometrics'),
-              // ElevatedButton(
-              //     onPressed: ,
-              //     child: const Text('Get available Biobetrics')),
+
+              ///?
+              const Divider(height: 50),
+              Text('Available biobetrics: $_availableBiometrics'),
+              ElevatedButton(
+                  onPressed: _getAvailableBiometrics,
+                  child: const Text('Get available Biobetrics')),
             ],
           ),
         ),
@@ -79,6 +80,18 @@ class _HomeState extends State<Home> {
     }
     if (!mounted) return;
     setState(() => _canCheckBiometrics = canCheckBiometrics);
+  }
+
+  Future<void> _getAvailableBiometrics() async {
+    late List<BiometricType> availableBiometrics;
+    try {
+      availableBiometrics = await auth.getAvailableBiometrics();
+    } on PlatformException catch (e) {
+      debugPrint('PlatformException: ${e.message}');
+      availableBiometrics = [];
+    }
+    if (!mounted) return;
+    setState(() => _availableBiometrics = availableBiometrics);
   }
 
   Future<void> _authenticate() async {
