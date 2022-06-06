@@ -63,6 +63,24 @@ class _HomeState extends State<Home> {
               ElevatedButton(
                   onPressed: _getAvailableBiometrics,
                   child: const Text('Get available Biobetrics')),
+
+              ///?
+              const Divider(height: 50),
+              Text('Current State: $_authorized'),
+              if (_isAuthenticating)
+                ElevatedButton(
+                    onPressed: _cancelAuthentication,
+                    child: const Text('Cancel Authentication')),
+              if (!_isAuthenticating)
+                ElevatedButton(
+                    onPressed: _authenticate,
+                    child: const Text('Authenticate')),
+              if (!_isAuthenticating)
+                ElevatedButton(
+                    onPressed: _authenticateWithBiometrics,
+                    child: Text(_isAuthenticating
+                        ? 'Cancel'
+                        : 'Authenticate: Biobetrics only')),
             ],
           ),
         ),
