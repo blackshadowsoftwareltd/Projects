@@ -19,6 +19,8 @@ class _HomeState extends State<Home> {
   bool _isAuthenticating = false;
   bool? _canCheckBiometrics;
   List<BiometricType>? _availableBiometrics;
+
+  ///? initState
   @override
   void initState() {
     super.initState();
@@ -40,54 +42,58 @@ class _HomeState extends State<Home> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ///?
-              _supportedState == SupportedState.unknown
-                  ? const CircularProgressIndicator()
-                  : _supportedState == SupportedState.supported
-                      ? const Text('This device is Supported')
-                      : const Text('This device is not Supported'),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+            const Divider(height: 150),
 
-              ///?
-              const Divider(height: 50),
-              Text('Can check biobetrics: $_canCheckBiometrics'),
+            ///? is Device support
+            _supportedState == SupportedState.unknown
+                ? const CircularProgressIndicator()
+                : _supportedState == SupportedState.supported
+                    ? const Text('This device is Supported')
+                    : const Text('This device is not Supported'),
+
+            ///? is possible to check biometrics
+            const Divider(height: 50),
+            Text('Can check biobetrics: $_canCheckBiometrics'),
+            ElevatedButton(
+                onPressed: _checkBiometrics,
+                child: const Text('Check Biobetrics')),
+
+            ///? Available Biometrics list
+            const Divider(height: 50),
+            Text('Available biobetrics: $_availableBiometrics'),
+            ElevatedButton(
+                onPressed: _getAvailableBiometrics,
+                child: const Text('Get available Biobetrics')),
+
+            ///? Cancel option authentications
+            const Divider(height: 50),
+            Text('Current State: $_authorized'),
+            if (_isAuthenticating)
               ElevatedButton(
-                  onPressed: _checkBiometrics,
-                  child: const Text('Check Biobetrics')),
+                  onPressed: _cancelAuthentication,
+                  child: const Text('Cancel Authentication')),
 
-              ///?
-              const Divider(height: 50),
-              Text('Available biobetrics: $_availableBiometrics'),
+            ///? Authenticate with PIN / Biometrics
+            if (!_isAuthenticating)
               ElevatedButton(
-                  onPressed: _getAvailableBiometrics,
-                  child: const Text('Get available Biobetrics')),
+                  onPressed: _authenticate, child: const Text('Authenticate')),
 
-              ///?
-              const Divider(height: 50),
-              Text('Current State: $_authorized'),
-              if (_isAuthenticating)
-                ElevatedButton(
-                    onPressed: _cancelAuthentication,
-                    child: const Text('Cancel Authentication')),
-              if (!_isAuthenticating)
-                ElevatedButton(
-                    onPressed: _authenticate,
-                    child: const Text('Authenticate')),
-              if (!_isAuthenticating)
-                ElevatedButton(
-                    onPressed: _authenticateWithBiometrics,
-                    child: Text(_isAuthenticating
-                        ? 'Cancel'
-                        : 'Authenticate: Biobetrics only')),
-            ],
-          ),
+            ///? Authenticate with only Biometrics
+            if (!_isAuthenticating)
+              ElevatedButton(
+                  onPressed: _authenticateWithBiometrics,
+                  child: Text(_isAuthenticating
+                      ? 'Cancel'
+                      : 'Authenticate: Biobetrics only')),
+          ]),
         ),
       ),
     );
   }
 
+  ///? is possible to check biometrics
   Future<void> _checkBiometrics() async {
     late bool canCheckBiometrics;
     try {
@@ -100,6 +106,7 @@ class _HomeState extends State<Home> {
     setState(() => _canCheckBiometrics = canCheckBiometrics);
   }
 
+  ///? Available Biometrics list
   Future<void> _getAvailableBiometrics() async {
     late List<BiometricType> availableBiometrics;
     try {
@@ -112,6 +119,7 @@ class _HomeState extends State<Home> {
     setState(() => _availableBiometrics = availableBiometrics);
   }
 
+  ///? Authenticate with PIN / Biometrics
   Future<void> _authenticate() async {
     bool authenticated = false;
     try {
@@ -135,6 +143,7 @@ class _HomeState extends State<Home> {
         () => _authorized = authenticated ? 'Authorized' : 'Not Authorized');
   }
 
+  ///? Authenticate with only Biometrics
   Future<void> _authenticateWithBiometrics() async {
     bool authenticated = false;
     try {
@@ -158,12 +167,14 @@ class _HomeState extends State<Home> {
         () => _authorized = authenticated ? 'Authorized' : 'Not Authorized');
   }
 
+  ///? Cancel option authentications
   Future<void> _cancelAuthentication() async {
     await auth.stopAuthentication();
     setState(() => _isAuthenticating = false);
   }
 }
 
+///? Supported State (enum)
 enum SupportedState {
   unknown,
   supported,
