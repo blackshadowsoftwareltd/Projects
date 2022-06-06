@@ -37,6 +37,35 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('AppBar')),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ///?
+              _supportedState == SupportedState.unknown
+                  ? const CircularProgressIndicator()
+                  : _supportedState == SupportedState.supported
+                      ? const Text('This device is Supported')
+                      : const Text('This device is not Supported'),
+
+              ///?
+              const Divider(height: 50),
+              Text('Can check biobetrics: $_canCheckBiometrics'),
+              ElevatedButton(
+                  onPressed: _checkBiometrics,
+                  child: const Text('Check Biobetrics')),
+              // ///?
+              // const Divider(height: 50),
+              // Text('Available biobetrics: $_availableBiometrics'),
+              // ElevatedButton(
+              //     onPressed: ,
+              //     child: const Text('Get available Biobetrics')),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -102,7 +131,6 @@ class _HomeState extends State<Home> {
     await auth.stopAuthentication();
     setState(() => _isAuthenticating = false);
   }
-  
 }
 
 enum SupportedState {
