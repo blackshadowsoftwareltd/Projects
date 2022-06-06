@@ -38,13 +38,13 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('AppBar')),
+      appBar: AppBar(title: const Text('Local Autentication Example')),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            const Divider(height: 150),
+            const SizedBox(height: 100),
 
             ///? is Device support
             _supportedState == SupportedState.unknown
@@ -61,14 +61,14 @@ class _HomeState extends State<Home> {
                 child: const Text('Check Biobetrics')),
 
             ///? Available Biometrics list
-            const Divider(height: 50),
+            const SizedBox(height: 50),
             Text('Available biobetrics: $_availableBiometrics'),
             ElevatedButton(
                 onPressed: _getAvailableBiometrics,
                 child: const Text('Get available Biobetrics')),
 
             ///? Cancel option authentications
-            const Divider(height: 50),
+            const SizedBox(height: 50),
             Text('Current State: $_authorized'),
             if (_isAuthenticating)
               ElevatedButton(
@@ -81,6 +81,7 @@ class _HomeState extends State<Home> {
                   onPressed: _authenticate, child: const Text('Authenticate')),
 
             ///? Authenticate with only Biometrics
+            const SizedBox(height: 10),
             if (!_isAuthenticating)
               ElevatedButton(
                   onPressed: _authenticateWithBiometrics,
