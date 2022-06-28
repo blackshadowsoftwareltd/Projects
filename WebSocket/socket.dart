@@ -6,18 +6,6 @@ StreamSubscription? dataSubscription;
 const maxDuration = Duration(seconds: 5000);
 Duration retryDuration = const Duration(seconds: 5);
 
-Future<void> _retryConnection() async {
-  ///? this code for retry after delay
-  // if (retryDuration.inSeconds < maxDuration.inSeconds) {
-  //   retryDuration = Duration(seconds: retryDuration.inSeconds * 2);
-  // }
-
-  print('[!]WebSocket disconnected');
-  await dataSocket?.close();
-  await Future.delayed(retryDuration);
-  return await connectWebSocketInBackground();
-}
-
 Future<void> connectWebSocketInBackground() async {
   dataSocket = null;
   final _url = baseUrl + '/'; //? -background for background connetion
@@ -49,6 +37,18 @@ Future<void> connectWebSocketInBackground() async {
     print(e);
     return _retryConnection();
   }
+}
+
+Future<void> _retryConnection() async {
+  ///? this code for retry after delay
+  // if (retryDuration.inSeconds < maxDuration.inSeconds) {
+  //   retryDuration = Duration(seconds: retryDuration.inSeconds * 2);
+  // }
+
+  print('[!]WebSocket disconnected');
+  await dataSocket?.close();
+  await Future.delayed(retryDuration);
+  return await connectWebSocketInBackground();
 }
 
 void listenWebSocketResponse(data) {}
