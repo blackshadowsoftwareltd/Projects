@@ -1,0 +1,10 @@
+{
+  "appTitle": "pattern_m",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "setting": "Setting",
+  "@setting": {
+    "description": "Setting"
+  }
+}
