@@ -8,8 +8,8 @@ import 'localization/loalization.dart'
 import 'modules/router/view/router.dart' show AppRouter;
 import 'modules/setting/provider/theme/theme_provider.dart' show themeProvider;
 
-class MyApp extends ConsumerWidget {
-  const MyApp({Key? key}) : super(key: key);
+class Wrapper extends ConsumerWidget {
+  const Wrapper({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
