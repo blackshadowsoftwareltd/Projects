@@ -1,6 +1,6 @@
 import 'dart:math' show Random;
 import 'package:flutter/material.dart';
-import 'active_thread.dart' show activeThread, sendPort;
+import 'active_thread.dart' show ActivityType, activeThread, sendPort;
 import 'persistence_thread.dart' show persistenceThread;
 import 'thread.dart' show doSomethingInThread;
 
@@ -33,10 +33,15 @@ class Home extends StatelessWidget {
           const SizedBox(height: 10),
           ElevatedButton(
               onPressed: () => sendPort.send([
-                    1,
+                    ActivityType.summation,
                     Random().nextInt(4294967296)
                   ]), // calculate sum of 4294967296
-              //onPressed: () => sendPort.send(['1', 1000001]), // print value
+
+              // onPressed: () => sendPort.send([
+              //       ActivityType.multiplication,
+              //       Random().nextInt(20)
+              //     ]), // calculate mult of 4294967296
+
               child: const Text('Do something in Activeted Thread')),
         ],
       )),

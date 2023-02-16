@@ -6,6 +6,8 @@ final receivePort = ReceivePort();
 late SendPort sendPort;
 final lock = Lock();
 
+enum ActivityType { summation, multiplication }
+
 Future<void> activeThread() async {
   debugPrint('Isolate activeting');
 
@@ -41,22 +43,36 @@ Future<void> runActiveThread(dynamic m) async {
       await lock.synchronized(() // syncronized from here
           async {
         debugPrint('Isolate Thread $messages');
-        if (messages[0] is int) {
-          printSumOf1000001(messages[1]);
-        } else if (messages[0] is String) {
-          debugPrint(messages[1]);
+        if (messages[0] is ActivityType &&
+            messages[0] == ActivityType.summation) {
+          printSumOfValue(messages[1]);
+        } else if (messages[0] is ActivityType &&
+            messages[0] == ActivityType.multiplication) {
+          printMulOfValue(messages[1]);
         }
       }));
 }
 
-Future<void> printSumOf1000001(int x) async {
-  debugPrint(calculate(x).toString());
+Future<void> printSumOfValue(int x) async {
+  debugPrint(_sum(x).toString());
 }
 
-int calculate(int x) {
+int _sum(int x) {
   int i = 1, sum = 0;
   for (i; i < x; i++) {
     sum += i;
   }
   return sum;
+}
+
+Future<void> printMulOfValue(int x) async {
+  debugPrint(_mul(x).toString());
+}
+
+int _mul(int x) {
+  int i = 1, mul = 1;
+  for (i; i < x; i++) {
+    mul = mul * i;
+  }
+  return mul;
 }
