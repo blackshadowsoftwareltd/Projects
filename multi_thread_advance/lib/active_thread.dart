@@ -3,10 +3,21 @@ import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:synchronized/synchronized.dart' show Lock;
 
 final receivePort = ReceivePort();
-late SendPort sendPort;
+SendPort? sendPort;
 final lock = Lock();
 
 enum ActivityType { summation, multiplication }
+
+///? This method will check if the isolate is active or not
+///? If not, it will activate the isolate
+///? If yes, it will send the message to the isolate
+Future<void> doSomething(dynamic messages) async {
+  if (sendPort == null) {
+    await activeThread();
+    await Future.delayed(const Duration(milliseconds: 500));
+  }
+  sendPort!.send(messages);
+}
 
 Future<void> activeThread() async {
   debugPrint('Isolate activeting');
@@ -34,7 +45,7 @@ Future<void> runActiveThread(dynamic m) async {
   sendPort = m[0] as SendPort;
 
   ///? Send new SendPort from receivePort.sendPort by the sendPort
-  sendPort.send(receivePort.sendPort);
+  sendPort!.send(receivePort.sendPort);
 
   //TODO init isarDBAsync
 
