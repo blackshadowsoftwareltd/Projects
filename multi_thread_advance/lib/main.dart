@@ -1,7 +1,5 @@
-import 'dart:math';
-
+import 'dart:math' show Random;
 import 'package:flutter/material.dart';
-
 import 'active_thread.dart' show activeThread, sendPort;
 import 'persistence_thread.dart' show persistenceThread;
 import 'thread.dart' show doSomethingInThread;

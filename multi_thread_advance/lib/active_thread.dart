@@ -1,8 +1,10 @@
-import 'dart:isolate';
+import 'dart:isolate' show Isolate, ReceivePort, SendPort;
 import 'package:flutter/foundation.dart' show debugPrint;
+import 'package:synchronized/synchronized.dart' show Lock;
 
 final receivePort = ReceivePort();
 late SendPort sendPort;
+final lock = Lock();
 
 Future<void> activeThread() async {
   debugPrint('Isolate activeting');
@@ -35,14 +37,16 @@ Future<void> runActiveThread(dynamic m) async {
   //TODO init isarDBAsync
 
   ///? Listen
-  receivePort.listen((messages) {
-    debugPrint('Isolate Thread $messages');
-    if (messages[0] is int) {
-      printSumOf1000001(messages[1]);
-    } else if (messages[0] is String) {
-      debugPrint(messages[1]);
-    }
-  });
+  receivePort.listen((messages) async => // listen from here
+      await lock.synchronized(() // syncronized from here
+          async {
+        debugPrint('Isolate Thread $messages');
+        if (messages[0] is int) {
+          printSumOf1000001(messages[1]);
+        } else if (messages[0] is String) {
+          debugPrint(messages[1]);
+        }
+      }));
 }
 
 Future<void> printSumOf1000001(int x) async {
