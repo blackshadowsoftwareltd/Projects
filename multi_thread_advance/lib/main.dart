@@ -37,10 +37,10 @@ class Home extends StatelessWidget {
                     Random().nextInt(4294967296)
                   ]), // calculate sum of 4294967296
 
-              // onPressed: () => doSomething([
-              //       ActivityType.multiplication,
-              //       Random().nextInt(20)
-              //     ]), // calculate mult of 4294967296
+              ///* onPressed: () => doSomething([
+              ///*       ActivityType.multiplication,
+              ///*       Random().nextInt(20)
+              ///*     ]), // calculate mult of 4294967296
 
               child: const Text('Do something in Activeted Thread')),
         ],
