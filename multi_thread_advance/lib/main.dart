@@ -2,6 +2,7 @@ import 'dart:math' show Random;
 import 'package:flutter/material.dart';
 import 'active_thread.dart' show ActivityType, activeThread, doSomething;
 import 'persistence_thread.dart' show persistenceThread;
+import 'shared_preferences.dart';
 import 'thread.dart' show doSomethingInThread;
 
 void main() {
@@ -43,6 +44,10 @@ class Home extends StatelessWidget {
               ///*     ]), // calculate mult of 4294967296
 
               child: const Text('Do something in Activeted Thread')),
+          const SizedBox(height: 10),
+          ElevatedButton(
+              onPressed: () async => await persistenceThreadSharedPreferences(),
+              child: const Text('Persistence Thread with SharedPreferences')),
         ],
       )),
     );
